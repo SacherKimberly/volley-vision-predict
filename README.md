@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
 
-## Project info
+# Beachvolleyball Antizipationstraining
 
-**URL**: https://lovable.dev/projects/09828341-130a-45da-861e-64b6faa3751f
+Eine minimalistische Web-App zur Verbesserung der Antizipationsfähigkeit beim Beachvolleyball.
 
-## How can I edit this code?
+## 🎯 Funktionsweise
 
-There are several ways of editing your application.
+Die App zeigt Ich-Perspektive-Videos von Beachvolleyballszenen. Nach einer kurzen Videodauer stoppt das Video automatisch und du musst per Tastendruck eine Entscheidung treffen, wohin der Ball vermutlich geschlagen wird.
 
-**Use Lovable**
+### Tastatur-Steuerung
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09828341-130a-45da-861e-64b6faa3751f) and start prompting.
+| Taste | Bedeutung |
+|-------|-----------|
+| **W** | Schritt nach vorn (Shot, kurzer Ball) |
+| **S** | Zurückfallen (Lob, tiefer Ball) |
+| **A** | Diagonal (Cross) |
+| **D** | Linie |
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Setup & Installation
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# Repository klonen
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Dependencies installieren
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Development Server starten
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 📁 Projektstruktur
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/           # React Komponenten
+│   ├── BeachvolleyballTraining.tsx  # Haupt-App Komponente
+│   ├── VideoPlayer.tsx             # Video-Player Logik
+│   ├── FeedbackOverlay.tsx         # Feedback Anzeige (Richtig/Falsch)
+│   ├── ScoreDisplay.tsx            # Punkteanzeige
+│   └── FinalScore.tsx              # Endergebnis-Bildschirm
+├── hooks/               # Custom React Hooks
+│   ├── useKeyboardInput.ts         # Tastatur-Input Handler
+│   └── useTrainingGame.ts          # Spiel-Logik
+├── types/               # TypeScript Typen
+│   └── Scene.ts                    # Scene Interface
+├── data/                # Daten-Konfiguration
+│   └── scenes.ts                   # Video-Szenen Konfiguration
+└── pages/               # Seiten
+    └── Index.tsx                   # Hauptseite
+```
 
-**Use GitHub Codespaces**
+## 🎥 Videos hinzufügen
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Videodateien in den `public/` Ordner legen
+2. Szenen-Konfiguration in `src/data/scenes.ts` anpassen:
 
-## What technologies are used for this project?
+```typescript
+export const scenes: Scene[] = [
+  { 
+    video: "mein-video.mp4", 
+    expectedKey: "A",        // Erwartete Taste (W/A/S/D)
+    stopAt: 3.4,            // Stopp-Zeitpunkt in Sekunden
+    description: "Beschreibung der Szene"
+  },
+  // Weitere Szenen...
+];
+```
 
-This project is built with:
+## 🔧 Anpassungen
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Neue Szenen hinzufügen
+- Bearbeite `src/data/scenes.ts`
+- Füge neue Video-Objekte mit `video`, `expectedKey` und `stopAt` hinzu
 
-## How can I deploy this project?
+### UI-Anpassungen
+- **Video-Player**: `src/components/VideoPlayer.tsx`
+- **Feedback-Design**: `src/components/FeedbackOverlay.tsx`
+- **Score-Anzeige**: `src/components/ScoreDisplay.tsx`
 
-Simply open [Lovable](https://lovable.dev/projects/09828341-130a-45da-861e-64b6faa3751f) and click on Share -> Publish.
+### Spiel-Logik ändern
+- **Tastatur-Input**: `src/hooks/useKeyboardInput.ts`
+- **Haupt-Spiellogik**: `src/hooks/useTrainingGame.ts`
 
-## Can I connect a custom domain to my Lovable project?
+## 🎮 Spielablauf
 
-Yes, you can!
+1. Video startet automatisch
+2. Video stoppt bei vordefiniertem Zeitpunkt
+3. 2 Sekunden Zeit für Tasteneingabe (W/A/S/D)
+4. Feedback wird angezeigt (Grün = Richtig, Rot = Falsch)
+5. Automatischer Übergang zur nächsten Szene
+6. Endergebnis nach allen Szenen
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📊 Features
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- ✅ Vollbild-Video-Darstellung
+- ✅ Minimalistisches Design ohne Ablenkungen
+- ✅ Punkteverfolgung und Statistiken
+- ✅ Automatischer Szenen-Übergang
+- ✅ Responsive Design
+- ✅ TypeScript für bessere Code-Qualität
+- ✅ Modulare Komponenten-Struktur
+
